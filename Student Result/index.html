@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Result Management System</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px #ccc;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px;
+      width: 100%;
+      background: green;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: darkgreen;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background: #007bff;
+      color: white;
+    }
+
+    .delete {
+      background: red;
+      padding: 5px;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Student Result Management System</h1>
+
+  <div class="container">
+
+    <input type="text" id="name" placeholder="Student Name">
+    <input type="number" id="math" placeholder="Math Marks">
+    <input type="number" id="science" placeholder="Science Marks">
+    <input type="number" id="english" placeholder="English Marks">
+
+    <button onclick="addStudent()">Add Result</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Total</th>
+          <th>Average</th>
+          <th>Grade</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody id="tableData"></tbody>
+    </table>
+
+  </div>
+
+  <script>
+    function addStudent() {
+      let name = document.getElementById("name").value;
+      let math = Number(document.getElementById("math").value);
+      let science = Number(document.getElementById("science").value);
+      let english = Number(document.getElementById("english").value);
+
+      if (name === "") {
+        alert("Please enter student name");
+        return;
+      }
+
+      let total = math + science + english;
+      let average = total / 3;
+
+      let grade = "";
+      if (average >= 80) grade = "A";
+      else if (average >= 60) grade = "B";
+      else if (average >= 40) grade = "C";
+      else grade = "F";
+
+      let table = document.getElementById("tableData");
+
+      let row = table.insertRow();
+
+      row.innerHTML = `
+        <td>${name}</td>
+        <td>${total}</td>
+        <td>${average.toFixed(2)}</td>
+        <td>${grade}</td>
+        <td><button class="delete" onclick="this.parentElement.parentElement.remove()">Delete</button></td>
+      `;
+
+      document.getElementById("name").value = "";
+      document.getElementById("math").value = "";
+      document.getElementById("science").value = "";
+      document.getElementById("english").value = "";
+    }
+  </script>
+
+</body>
+</html>
